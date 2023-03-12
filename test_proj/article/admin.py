@@ -1,4 +1,17 @@
 from django.contrib import admin
-from .models import Article
+from django.contrib.admin import DateFieldListFilter
+from .models import Article, Comment
 
-admin.site.register(Article)
+
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ('name', 'timestamp', 'id')
+    search_fields = ['name', 'body']
+    list_filter = (
+        ('timestamp', DateFieldListFilter),
+    )
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    pass
